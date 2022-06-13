@@ -1,0 +1,39 @@
+const express = require('express');
+const handlebars = require('express-handlebars');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const path = require('path');
+const route = require('./routes');
+const db = require('./config/db');
+const methodOverride = require('method-override');
+const port = 3000;
+
+const app = express();
+
+app.use(morgan('combined'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.engine(
+  '.hbs',
+  handlebars.engine({
+    extname: '.hbs',
+    helpers: {
+      sum: (a, b) => a + b,
+    },
+  }),
+);
+app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'resources', 'views'));
+
+route(app);
+
+db.connect();
+
+app.use(methodOverride('_method'));
+
+app.listen(port, () => console.log(`App running on http://localhost:${port}`));

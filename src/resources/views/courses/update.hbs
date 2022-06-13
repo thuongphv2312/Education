@@ -1,0 +1,16 @@
+<h1>Cập khóa học</h1>
+<form method="POST" action="/course/{{course._id}}?_method=PUT" >
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" value="{{course.name}}" id="name" name="name"  placeholder="Enter name">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter description">{{course.description}}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="videoID">VideoId</label>
+    <input type="text" class="form-control" value="{{course.videoId}}" id="videoId" name="videoId" placeholder="Enter videoId">
+  </div>
+  <button type="submit" class="btn btn-primary">Lưu lại</button>
+</form>
